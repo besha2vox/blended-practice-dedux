@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectUsers } from 'redux/selectors';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const List = styled.ul`
   list-style: none;
@@ -20,12 +20,15 @@ const UserLink = styled(Link)`
 
 const UsersList = () => {
   const users = useSelector(selectUsers);
+  const location = useLocation();
 
   return (
     <List>
       {users.map(({ name, id }) => (
         <li key={id}>
-          <UserLink>{name}</UserLink>
+          <UserLink to={id} state={{ from: location }}>
+            {name}
+          </UserLink>
         </li>
       ))}
     </List>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUsers } from './operations';
+import { fetchUsers, fetchUserById, fetchDeleteUser } from './operations';
 
 const usersSlice = createSlice({
   name: 'users',
@@ -7,6 +7,7 @@ const usersSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
+    currentUser: null,
   },
   extraReducers: builder => {
     builder
@@ -17,8 +18,33 @@ const usersSlice = createSlice({
         state.items = payload;
         state.isLoading = false;
         state.error = null;
+        state.currentUser = null;
       })
       .addCase(fetchUsers.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(fetchUserById.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUserById.fulfilled, (state, { payload }) => {
+        state.currentUser = payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(fetchUserById.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(fetchDeleteUser.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(fetchDeleteUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.items = state.items.filter(item => item.id !== payload);
+      })
+      .addCase(fetchDeleteUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       });

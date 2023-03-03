@@ -14,3 +14,29 @@ export const fetchUsers = createAsyncThunk(
     }
   }
 );
+
+export const fetchUserById = createAsyncThunk(
+  'users/fetchById',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios(`/users/${id}`);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchDeleteUser = createAsyncThunk(
+  'users/fetchDeleteUser',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete(`/users/${id}`);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
