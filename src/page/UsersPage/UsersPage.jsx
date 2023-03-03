@@ -1,7 +1,7 @@
 import Button from 'components/Button/Button';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectUsers } from 'redux/selectors';
+// import { selectUsers } from 'redux/selectors';
 import { useDispatch } from 'react-redux';
 import { fetchUsers } from 'redux/operations';
 import { selectIsLoading } from 'redux/selectors';
@@ -9,7 +9,7 @@ import UsersList from 'components/UsersList/UsersList';
 
 const UsersPage = () => {
   const [filterOrder, setFilterOrder] = useState('default');
-  const users = useSelector(selectUsers);
+  // const users = useSelector(selectUsers);
   const [isUsersShow, setIsUsersShow] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
