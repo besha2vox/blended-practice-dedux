@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUsers, fetchUserById, fetchDeleteUser } from './operations';
+import {
+  fetchUsers,
+  fetchAddUser,
+  fetchUserById,
+  fetchDeleteUser,
+} from './operations';
 
 const usersSlice = createSlice({
   name: 'users',
@@ -45,6 +50,18 @@ const usersSlice = createSlice({
         state.items = state.items.filter(item => item.id !== payload);
       })
       .addCase(fetchDeleteUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(fetchAddUser.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAddUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.items.push(payload);
+      })
+      .addCase(fetchAddUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       });

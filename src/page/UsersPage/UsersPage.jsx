@@ -1,23 +1,17 @@
-import Button from 'components/Button/Button';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-// import { selectUsers } from 'redux/selectors';
-import { useDispatch } from 'react-redux';
-import { fetchUsers } from 'redux/operations';
 import { selectIsLoading } from 'redux/selectors';
 import UsersList from 'components/UsersList/UsersList';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+const ButtonFilter = styled.button`
+  background-color: ${({ isActive }) => (isActive ? 'orangered' : 'inherit')};
+`;
 
 const UsersPage = () => {
   const [filterOrder, setFilterOrder] = useState('default');
-  // const users = useSelector(selectUsers);
-  const [isUsersShow, setIsUsersShow] = useState(false);
-  const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-
-  const showUsers = () => {
-    setIsUsersShow(true);
-    dispatch(fetchUsers());
-  };
 
   const filterBtnClickHandler = () => {
     switch (filterOrder) {
@@ -38,19 +32,25 @@ const UsersPage = () => {
 
   return (
     <div>
-      {!isUsersShow && (
-        <Button text="show users" handlerButtonClick={showUsers} />
-      )}
-      {isUsersShow && !isLoading && (
-        <>
-          <button onClick={filterBtnClickHandler} type="button">
-            {filterOrder === 'default' ? 'Filter from A to Z' : filterOrder}
-          </button>
-          <UsersList />
-        </>
-      )}
+      <ButtonFilter
+        isActive={filterOrder !== 'default'}
+        onClick={filterBtnClickHandler}
+        type="button"
+      >
+        {filterOrder === 'default' ? 'Filter from A to Z' : filterOrder}
+      </ButtonFilter>
+      <ButtonFilter
+        disabled={filterOrder === 'default'}
+        onClick={() => setFilterOrder('default')}
+      >
+        Disable filter
+      </ButtonFilter>
+      <UsersList filter={filterOrder} />
+      <Link to="add">Add user</Link>
     </div>
   );
+
+  // return <UsersList />;
 };
 
 export default UsersPage;

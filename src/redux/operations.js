@@ -40,3 +40,16 @@ export const fetchDeleteUser = createAsyncThunk(
     }
   }
 );
+
+export const fetchAddUser = createAsyncThunk(
+  'users/fetchAddUser',
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(`/users/`, user);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
