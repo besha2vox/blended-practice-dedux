@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { fetchAddUser } from 'redux/operations';
 import styled from 'styled-components';
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   padding-left: 20px;

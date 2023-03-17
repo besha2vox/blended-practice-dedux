@@ -24,8 +24,8 @@ const UserDetaailsPage = () => {
     <>
       {user && (
         <>
-          <Link to={location.state.from}>Go back</Link>
-          <img src={user.avatar} alt={user.name} />
+          <Link to={location?.state?.from}>Go back</Link>
+          <img width="150" src={user.avatar} alt={user.name} />
           <h3>{user.name}</h3>
           <p>{user.adress}</p>
           <p>{user.phone}</p>
@@ -33,6 +33,9 @@ const UserDetaailsPage = () => {
           <button type="button" onClick={btnClickHandler}>
             Delete user
           </button>
+          <Link state={user} to={`/users/${id}/update`}>
+            Update user
+          </Link>
           {isModalOpen && <Modal toggleModal={btnClickHandler} />}
         </>
       )}

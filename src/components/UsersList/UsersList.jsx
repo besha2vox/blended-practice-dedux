@@ -25,7 +25,6 @@ const UsersList = ({ filter }) => {
   const users = useSelector(selectUsers);
   const [filteredUsers, setFilteredUsers] = useState([...users]);
   const location = useLocation();
-  console.log('location:', location);
   const dispatch = useDispatch();
 
   useEffect(() => {

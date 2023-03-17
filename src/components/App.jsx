@@ -4,6 +4,7 @@ import Layout from './Layout/Layout';
 
 const HomePage = lazy(() => import('../page/HomePage/HomePage'));
 const AddPage = lazy(() => import('../page/AddPage/AddPage'));
+const UpdatePage = lazy(() => import('../page/UpdatePage/UpdatePage'));
 const UsersPage = lazy(() => import('../page/UsersPage/UsersPage'));
 const UserDetaailsPage = lazy(() =>
   import('../page/UserDetaailsPage/UserDetaailsPage')
@@ -16,6 +17,7 @@ export const App = () => {
         <Route index element={<HomePage />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="/users/:id" element={<UserDetaailsPage />} />
+        <Route path="/users/:id/update" element={<UpdatePage />} />
         <Route path="/users/add" element={<AddPage />} />
         <Route path="*" element={<HomePage />} />
       </Route>
